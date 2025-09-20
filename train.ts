@@ -3,10 +3,12 @@ console.log('Train ts file run sucessfully');
 // TASK ZM:
 
 function reverseInteger(a: number) {
-	console.log(a.toString().split('').reverse().join(''));
+	const isNumber = a < 0;
+	const result = Number(Math.abs(a).toString().split('').reverse().join(''));
+	console.log(isNumber ? -result : result);
 }
 
-reverseInteger(123456789);
+reverseInteger(-87);
 
 // Shunday function yozing, va bu function parametr
 // sifatida raqamlarni qabul qilsin. Bu function qabul qilingan
