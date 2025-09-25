@@ -25,6 +25,7 @@ import { T } from './libs/types/common';
 				};
 				console.log(' GRAPHQUEL GLOBAL ERROR', graphQLFormattedError);
 				return graphQLFormattedError;
+				/*agarda frontend dan hatolik kirib kelsa uni shu yerda handle qiladi */
 			},
 		}),
 		ComponentsModule,
