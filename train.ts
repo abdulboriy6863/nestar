@@ -1,14 +1,35 @@
 console.log('Train ts file run sucessfully');
 
-// TASK ZM:
+// TASK ZN:
 
-function reverseInteger(a: number) {
-	const isNumber = a < 0;
-	const result = Number(Math.abs(a).toString().split('').reverse().join(''));
-	console.log(isNumber ? -result : result);
+function rotateArray(a: number[], b: number) {
+	const index = a.indexOf(b);
+	if (index === -1) return a;
+
+	const part1 = a.slice(index + 1);
+	const part2 = a.slice(0, index + 1);
+	return [...part1, ...part2];
 }
 
-reverseInteger(-87);
+console.log(rotateArray([1, 2, 3, 4, 5, 6], 4));
+
+// Shunday function yozing, uni array va number parametri bo'lsin.
+// Function'ning vazifasi ikkinchi parametr'da berilgan raqam, birinchi
+// array parametr'ning indeksi bo'yicha hisoblanib, shu indeksgacha bo'lgan
+// raqamlarni indeksdan tashqarida bo'lgan raqamlar bilan o'rnini
+// almashtirib qaytarsin.
+
+// MASALAN: rotateArray([1, 2, 3, 4, 5, 6], 3); return [5, 6, 1, 2, 3, 4];
+
+// // TASK ZM:
+
+// function reverseInteger(a: number) {
+// 	const isNumber = a < 0;
+// 	const result = Number(Math.abs(a).toString().split('').reverse().join(''));
+// 	console.log(isNumber ? -result : result);
+// }
+
+// reverseInteger(-87);
 
 // Shunday function yozing, va bu function parametr
 // sifatida raqamlarni qabul qilsin. Bu function qabul qilingan
