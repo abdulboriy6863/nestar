@@ -9,6 +9,7 @@ import { ObjectId } from 'mongoose';
 import { MemberType } from '../../libs/enums/member.enum';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { RolesGuard } from '../auth/guards/roles.guard';
+import { MemberUpdate } from '../../libs/dto/member/member.update';
 
 @Resolver()
 export class MemberResolver {
@@ -27,18 +28,9 @@ export class MemberResolver {
 		return await this.memberService.login(input);
 	}
 
-	//Authenticated (USER, ADMIN, AGENT)
-	@UseGuards(AuthGuard)
-	@Mutation(() => String)
-	public async updateMember(@AuthMember('_id') memberId: ObjectId): Promise<string> {
-		console.log('Mutation: updateMember');
-		// console.log(memberId);
-
-		return this.memberService.updateMember();
-	}
-
 	@UseGuards(AuthGuard)
 	@Query(() => String)
+	//checkAuth Query  graphQ API parametr sifatida memberNickni pass qilyapmiz ....
 	public async checkAuth(@AuthMember('memberNick') memberNick: string): Promise<string> {
 		console.log('Query checkAuth');
 		console.log('memberNick:', memberNick);
@@ -52,6 +44,18 @@ export class MemberResolver {
 		console.log('Query checkAuthRules');
 		// console.log('memberNick:', authMember);
 		return `Hi ${authMember.memberNick}, you are ${authMember.memberType} (memberId: ${authMember._id})`;
+	}
+
+	//Authenticated (USER, ADMIN, AGENT)
+	@UseGuards(AuthGuard)
+	@Mutation(() => Member)
+	public async updateMember(
+		@Args('input') input: MemberUpdate,
+		@AuthMember('_id') memberId: ObjectId,
+	): Promise<Member> {
+		console.log('Mutation: updateMember');
+		delete input._id;
+		return this.memberService.updateMember(memberId, input);
 	}
 
 	@Query(() => String)
