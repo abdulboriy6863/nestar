@@ -94,5 +94,5 @@ export class Members {
 	list: Member[];
 
 	@Field(() => [TotalCounter], { nullable: true })
-	mateCounter: TotalCounter[];
+	metaCounter: TotalCounter[];
 }
