@@ -13,8 +13,8 @@ import { MemberUpdate } from '../../libs/dto/member/member.update';
 import { getSerialForImage, shapeIntoMongoObjectId, validMimeTypes } from '../../libs/config';
 import { WithoutGuard } from '../auth/guards/without.guard';
 import { GraphQLUpload, FileUpload } from 'graphql-upload';
-import { createWriteStream } from 'fs';
 import { Message } from '../../libs/enums/common.enum';
+import { createWriteStream } from 'fs';
 
 @Resolver()
 export class MemberResolver {
@@ -101,9 +101,9 @@ export class MemberResolver {
 	@UseGuards(AuthGuard)
 	@Mutation((returns) => String)
 	public async imageUploader(
-		@Args({ name: 'file', type: () => GraphQLUpload })
-		{ createReadStream, filename, mimetype }: FileUpload,
-		@Args('target') target: String,
+		@Args({ name: 'file', type: () => GraphQLUpload }) //file nomi ostida kirib kelayotgan imageni qabul etadi va type ni GraphQLUpload type sifatida belgilaymiz
+		{ createReadStream, filename, mimetype }: FileUpload, // bu yerda destruction qilyapmiz shu turdagi malumotlarni
+		@Args('target') target: String, //serverimizga yuborilayotkan imageni manzilini belgilaymiz
 	): Promise<string> {
 		console.log('Mutation: imageUploader');
 
@@ -112,15 +112,16 @@ export class MemberResolver {
 		if (!validMime) throw new Error(Message.PROVIDE_ALLOWED_FORMAT);
 
 		const imageName = getSerialForImage(filename);
-		const url = `uploads/${target}/${imageName}`;
+		const url = `uploads/${target}/${imageName}`; //uploades folderini aynan target nomi folderiga saqlashni aytyapmiz
 		const stream = createReadStream();
-
+		console.log('url', url);
 		const result = await new Promise((resolve, reject) => {
 			stream
 				.pipe(createWriteStream(url))
 				.on('finish', async () => resolve(true))
 				.on('error', () => reject(false));
 		});
+
 		if (!result) throw new Error(Message.UPLOAD_FAILED);
 
 		return url;
