@@ -1,21 +1,31 @@
 console.log('Train ts file run sucessfully');
 
-// TASK ZO:
-
-function areParenthesesBalanced(a: string) {
-	let count = 0;
-	const isValid = a.split('').every((char) => {
-		if (char === '(') count++;
-		else if (char === ')') {
-			count--;
-			if (count < 0) return false;
-		}
-		return true;
-	});
-	console.log(isValid && count === 0);
+function areArraysEqual(arr1, arr2) {
+	const unique1 = [...new Set(arr1)].sort();
+	const unique2 = [...new Set(arr2)].sort();
+	return JSON.stringify(unique1) === JSON.stringify(unique2);
 }
 
-areParenthesesBalanced('string()ichida(qavslar)soni()balansda()');
+console.log(areArraysEqual([1, 2, 3], [3, 1, 2])); // true
+console.log(areArraysEqual([1, 2, 3], [3, 1, 2])); // true
+console.log(areArraysEqual([1, 2, 3], [4, 1, 2])); // false
+
+// TASK ZO:
+
+// function areParenthesesBalanced(a: string) {
+// 	let count = 0;
+// 	const isValid = a.split('').every((char) => {
+// 		if (char === '(') count++;
+// 		else if (char === ')') {
+// 			count--;
+// 			if (count < 0) return false;
+// 		}
+// 		return true;
+// 	});
+// 	console.log(isValid && count === 0);
+// }
+
+// areParenthesesBalanced('string()ichida(qavslar)soni()balansda()');
 
 // Shunday function yozing, u parametrdagi string ichidagi qavslar miqdori balansda ekanligini aniqlasin. Ya'ni ochish("(") va yopish(")") qavslar soni bir xil bolishi kerak.
 // MASALAN: areParenthesesBalanced("string()ichida(qavslar)soni()balansda") return true
