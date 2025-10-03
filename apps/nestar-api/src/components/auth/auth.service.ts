@@ -14,7 +14,7 @@ export class AuthService {
 		return await bcrypt.hash(memberPassword, salt);
 	}
 
-	public async comparePassword(password: string, hashedPassword: string): Promise<boolean> {
+	public async comparePasswords(password: string, hashedPassword: string): Promise<boolean> {
 		return await bcrypt.compare(password, hashedPassword);
 	}
 
