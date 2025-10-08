@@ -1,14 +1,28 @@
 console.log('Train ts file run sucessfully');
 
-function areArraysEqual(arr1, arr2) {
-	const unique1 = [...new Set(arr1)].sort();
-	const unique2 = [...new Set(arr2)].sort();
-	return JSON.stringify(unique1) === JSON.stringify(unique2);
+// TASK ZQ:
+
+// Shunday function yozing, bu function berilgan array parametr
+// ichida ikki marotaba yoki undan ko'p takrorlangan sonlarni alohida
+// array'da yagonadan qaytarsin qaytarsin.
+
+function findDuplicates(a: number[]) {
+	return a.filter((item, index) => a.indexOf(item) !== index);
 }
 
-console.log(areArraysEqual([1, 2, 3], [3, 1, 2])); // true
-console.log(areArraysEqual([1, 2, 3], [3, 1, 2])); // true
-console.log(areArraysEqual([1, 2, 3], [4, 1, 2])); // false
+console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3]));
+
+// MASALAN: findDuplicates([1,2,3,4,5,4,3,4]); return [3, 4];
+
+// function areArraysEqual(arr1, arr2) {
+// 	const unique1 = [...new Set(arr1)].sort();
+// 	const unique2 = [...new Set(arr2)].sort();
+// 	return JSON.stringify(unique1) === JSON.stringify(unique2);
+// }
+
+// console.log(areArraysEqual([1, 2, 3], [3, 1, 2])); // true
+// console.log(areArraysEqual([1, 2, 3], [3, 1, 2])); // true
+// console.log(areArraysEqual([1, 2, 3], [4, 1, 2])); // false
 
 // TASK ZO:
 
