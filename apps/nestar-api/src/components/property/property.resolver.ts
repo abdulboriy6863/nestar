@@ -34,8 +34,8 @@ export class PropertyResolver {
 		return await this.propertyService.createProperty(input);
 	}
 
-	@UseGuards(WithoutGuard)
-	@Mutation((returns) => Property)
+	@UseGuards(WithoutGuard) //Ixtiyoriy odam ishlata oladi
+	@Query((returns) => Property)
 	public async getProperty(
 		@Args('propertyId') input: string,
 		@AuthMember('_id') memberId: ObjectId,
