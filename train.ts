@@ -1,16 +1,41 @@
 console.log('Train ts file run sucessfully');
 
+// TASK ZR:
+
+// Shunday function yozing, bu function,
+// berilgan parametr string tarkibidagi raqam va sonlarni
+// sanab object sifatida qaytarsin.
+
+function countNumberAndLetters(a: string) {
+	let letters = 0;
+	let numbers = 0;
+
+	for (let ch of a) {
+		if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+			letters++;
+		} else if (ch >= '0' && ch <= '9') {
+			numbers++;
+		}
+	}
+
+	return { letters, numbers };
+}
+
+console.log(countNumberAndLetters('string152%39skj\\¥'));
+
+// MASALAN: countNumberAndLetters(“string152%\¥”); return {number: 3, letter: 6};
+
 // TASK ZQ:
 
 // Shunday function yozing, bu function berilgan array parametr
 // ichida ikki marotaba yoki undan ko'p takrorlangan sonlarni alohida
 // array'da yagonadan qaytarsin qaytarsin.
 
-function findDuplicates(a: number[]) {
-	return a.filter((item, index) => a.indexOf(item) !== index);
-}
+// function findDuplicates(a: number[]) {
+// 	return a.filter((item, index) => a.indexOf(item) !== index);
+// }
 
-console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3]));
+// console.log(findDuplicates([1, 2, 3, 4, 5, 4, 3]));
 
 // MASALAN: findDuplicates([1,2,3,4,5,4,3,4]); return [3, 4];
 
