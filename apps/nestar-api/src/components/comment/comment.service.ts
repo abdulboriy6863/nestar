@@ -11,6 +11,7 @@ import { CommentGroup, CommentStatus } from '../../libs/enums/comment.enum';
 import { CommentUpdate } from '../../libs/dto/comment/comment.update';
 import { lookupMember } from '../../libs/config';
 import { T } from '../../libs/types/common';
+import { hrtime } from 'process';
 
 @Injectable()
 export class CommentService {
@@ -101,5 +102,11 @@ export class CommentService {
 		if (!result.length) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
 
 		return result[0];
+	}
+
+	public async removeCommentByAdmin(input: ObjectId): Promise<Comment> {
+		const result = await this.commentModel.findByIdAndDelete(input);
+		if (!result) throw new InternalServerErrorException(Message.REMOVE_FAILED);
+		return result;
 	}
 }
