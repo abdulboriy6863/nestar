@@ -1,8 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, ObjectId } from 'mongoose';
 import { Follower, Following } from '../../libs/dto/follow/follow';
 import { MemberService } from '../member/member.service';
+import { Message } from '../../libs/enums/common.enum';
+import { waitForDebugger } from 'inspector';
 
 @Injectable()
 export class FollowService {
@@ -10,4 +12,33 @@ export class FollowService {
 		@InjectModel('Follow') private readonly followModel: Model<Follower | Following>,
 		private readonly memberService: MemberService,
 	) {}
+
+	public async subscribe(followerId: ObjectId, followingId: ObjectId): Promise<Follower> {
+		if (followerId.toString() === followingId.toString()) {
+			//ikkala qiymatni solishtiryapmiz sababi oziga ozi follow qilmayaptim shuni bilish uchun
+			throw new InternalServerErrorException(Message.SELF_SUBSCRIPTION_DENIED);
+		}
+
+		const targetMember = await this.memberService.getMember(null, followerId); // tushunmadim
+		if (!targetMember) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
+
+		const result = await this.registerSubscription(followerId, followerId);
+
+		await this.memberService.memberStatsEditor({ _id: followerId, targetKey: 'memberFollowings', modifier: 1 });
+		await this.memberService.memberStatsEditor({ _id: followerId, targetKey: 'memberFollowers', modifier: 1 });
+
+		return result;
+	}
+
+	public async registerSubscription(followerId: ObjectId, followingId: ObjectId): Promise<Follower> {
+		try {
+			return await this.followModel.create({
+				followingId: followingId,
+				followerId: followerId,
+			});
+		} catch (err) {
+			console.log('Error, Service.model:', err.message);
+			throw new BadRequestException(Message.CREATE_FAILED);
+		}
+	}
 }
