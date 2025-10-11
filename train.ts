@@ -1,27 +1,45 @@
 console.log('Train ts file run sucessfully');
 
+// TASK ZS:
+
+function singleNumber(a: number[]) {
+	let result = 0;
+	for (const num of a) {
+		result ^= num;
+	}
+
+	return result;
+}
+
+console.log(singleNumber([4, 2, 1, 2, 1, 4, 9]));
+
+// Shunday function yozing, bu function parametrdagi array ichida
+// bir marotaba takrorlangan element'ni qaytarsin
+
+// MASALAN: singleNumber([4, 2, 1, 2, 1]); return 4;
+
 // TASK ZR:
 
 // Shunday function yozing, bu function,
 // berilgan parametr string tarkibidagi raqam va sonlarni
 // sanab object sifatida qaytarsin.
 
-function countNumberAndLetters(a: string) {
-	let letters = 0;
-	let numbers = 0;
+// function countNumberAndLetters(a: string) {
+// 	let letters = 0;
+// 	let numbers = 0;
 
-	for (let ch of a) {
-		if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
-			letters++;
-		} else if (ch >= '0' && ch <= '9') {
-			numbers++;
-		}
-	}
+// 	for (let ch of a) {
+// 		if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+// 			letters++;
+// 		} else if (ch >= '0' && ch <= '9') {
+// 			numbers++;
+// 		}
+// 	}
 
-	return { letters, numbers };
-}
+// 	return { letters, numbers };
+// }
 
-console.log(countNumberAndLetters('string152%39skj\\¥'));
+// console.log(countNumberAndLetters('string152%39skj\\¥'));
 
 // MASALAN: countNumberAndLetters(“string152%\¥”); return {number: 3, letter: 6};
 
