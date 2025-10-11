@@ -19,13 +19,13 @@ export class FollowService {
 			throw new InternalServerErrorException(Message.SELF_SUBSCRIPTION_DENIED);
 		}
 
-		const targetMember = await this.memberService.getMember(null, followerId); // tushunmadim
+		const targetMember = await this.memberService.getMember(null, followingId); // tushunmadim
 		if (!targetMember) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
 
-		const result = await this.registerSubscription(followerId, followerId);
+		const result = await this.registerSubscription(followerId, followingId);
 
 		await this.memberService.memberStatsEditor({ _id: followerId, targetKey: 'memberFollowings', modifier: 1 });
-		await this.memberService.memberStatsEditor({ _id: followerId, targetKey: 'memberFollowers', modifier: 1 });
+		await this.memberService.memberStatsEditor({ _id: followingId, targetKey: 'memberFollowers', modifier: 1 });
 
 		return result;
 	}
@@ -40,5 +40,21 @@ export class FollowService {
 			console.log('Error, Service.model:', err.message);
 			throw new BadRequestException(Message.CREATE_FAILED);
 		}
+	}
+
+	public async unsubscribe(followerId: ObjectId, followingId: ObjectId): Promise<Follower> {
+		const targetMember = await this.memberService.getMember(null, followingId);
+		if (!targetMember) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
+
+		const result = await this.followModel.findOneAndDelete({
+			followingId: followingId,
+			followerId: followerId,
+		});
+		if (!result) throw new InternalServerErrorException(Message.NO_DATA_FOUND);
+
+		await this.memberService.memberStatsEditor({ _id: followerId, targetKey: 'memberFollowings', modifier: -1 });
+		await this.memberService.memberStatsEditor({ _id: followingId, targetKey: 'memberFollowers', modifier: -1 });
+
+		return result;
 	}
 }

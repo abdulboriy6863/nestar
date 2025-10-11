@@ -22,4 +22,16 @@ export class FollowResolver {
 		const followingId = shapeIntoMongoObjectId(input);
 		return await this.followService.subscribe(memberId, followingId);
 	}
+
+	@UseGuards(AuthGuard)
+	@Mutation(() => Follower)
+	public async unsubscribe(
+		//qachoonga boshqa memberga follw qilmoqchi bolsek ishga tushadi
+		@Args('input') input: string,
+		@AuthMember('_id') memberId: ObjectId,
+	): Promise<Follower> {
+		console.log('Mutation: unsubscribe');
+		const followingId = shapeIntoMongoObjectId(input);
+		return await this.followService.unsubscribe(memberId, followingId);
+	}
 }
