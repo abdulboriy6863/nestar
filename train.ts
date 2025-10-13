@@ -1,17 +1,32 @@
 console.log('Train ts file run sucessfully');
 
+// TASK ZT:
+
+function firstUniqueCharIndex(a: string) {
+	return a.split('').findIndex((char, _, arr) => arr.indexOf(char) === arr.lastIndexOf(char));
+}
+console.log(firstUniqueCharIndex('ssttaammp'));
+
+// Shunday function yozing, bu function parametrdagi string ichida
+// bir marotabadan ortiq qaytarilmagan birinchi harf indeksini qaytarsin
+
+// MASALAN: firstUniqueCharIndex(“stamp”); return 0;
+
+// Yuqoridagi misolda, 'stamp' so'zi tarkibida barcha harflar bir marotabadan
+// ortiq takrorlanmagan, lekin shartga muvofiq, birinchi topilgan harf indeksi qaytarilmoqda.
+
 // TASK ZS:
 
-function singleNumber(a: number[]) {
-	let result = 0;
-	for (const num of a) {
-		result ^= num;
-	}
+// function singleNumber(a: number[]) {
+// 	let result = 0;
+// 	for (const num of a) {
+// 		result ^= num;
+// 	}
 
-	return result;
-}
+// 	return result;
+// }
 
-console.log(singleNumber([4, 2, 1, 2, 1, 4, 9]));
+// console.log(singleNumber([4, 2, 1, 2, 1, 4, 9]));
 
 // Shunday function yozing, bu function parametrdagi array ichida
 // bir marotaba takrorlangan element'ni qaytarsin
