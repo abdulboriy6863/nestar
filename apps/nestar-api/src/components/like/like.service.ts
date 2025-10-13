@@ -42,11 +42,11 @@ export class LikeService {
 
 	public async getFavoriteProperties(memberId: ObjectId, input: OrdinaryInquiry): Promise<Properties> {
 		const { page, limit } = input;
-		const match: T = { likeGroup: LikeGroup.PROPERTY, memberId: memberId };
+		const match: T = { likeGroup: LikeGroup.PROPERTY, memberId: memberId }; //likes collectionida like bosgan propertylarimizi izlayapmiz
 
 		const data: T = await this.LikeModel.aggregate([
 			{ $match: match },
-			{ $sort: { updatedAt: -1 } },
+			{ $sort: { updatedAt: -1 } }, //eng ohirgi qoygan likedan olib beradi
 			{
 				$lookup: {
 					from: 'properties',
