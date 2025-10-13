@@ -6,7 +6,12 @@ import { MemberService } from '../member/member.service';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { waitForDebugger } from 'inspector';
 import { FollowInquiry } from '../../libs/dto/follow/follow.input';
-import { lookupAuthMemberLiked, lookupFollowerData, lookupFollowingData } from '../../libs/config';
+import {
+	lookupAuthMemberFollowed,
+	lookupAuthMemberLiked,
+	lookupFollowerData,
+	lookupFollowingData,
+} from '../../libs/config';
 import { T } from '../../libs/types/common';
 import { hrtime } from 'process';
 
@@ -80,6 +85,7 @@ export class FollowService {
 							//meliked,
 							lookupAuthMemberLiked(memberId, '$followingId'),
 							//mefollowed
+							lookupAuthMemberFollowed({ followerId: memberId, followingId: '$followingId' }),
 							lookupFollowingData,
 							{ $unwind: '$followingData' },
 						],
@@ -112,6 +118,8 @@ export class FollowService {
 							lookupAuthMemberLiked(memberId, '$followerId'),
 
 							//mefollowed
+							lookupAuthMemberFollowed({ followerId: memberId, followingId: '$followerId' }),
+
 							lookupFollowerData,
 							{ $unwind: '$followerData' },
 						],
