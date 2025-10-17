@@ -1,11 +1,30 @@
 console.log('Train ts file run sucessfully');
 
+// TASK ZU:
+
+function sumOfUnique(a: number[]) {
+	return a.filter((n) => a.indexOf(n) === a.lastIndexOf(n)).reduce((a, b) => a + b, 0);
+}
+
+console.log(sumOfUnique([1, 2, 3, 2]));
+
+// Shunday function yozing, va bu function parametr sifatida
+// raqamlardan iborat array'ni qabul qilsin. Function'ning vazifasi,
+// berilgan parametr array tarkibida takrorlanmagan raqamlarni topib
+// ularni yig'indisini qaytarsin.
+
+// MASALAN: sumOfUnique([1,2,3,2]); return 4;
+
+// Yuqoridagi misolda, argument sifatida pass qilinayotgan array
+// tarkibida bir marotabadan ortiq takrorlanmagan raqamlar, bular '1', '3'.
+// Va natija sifatida yig'indi 4'ga teng.
+
 // TASK ZT:
 
-function firstUniqueCharIndex(a: string) {
-	return a.split('').findIndex((char, _, arr) => arr.indexOf(char) === arr.lastIndexOf(char));
-}
-console.log(firstUniqueCharIndex('ssttaammp'));
+// function firstUniqueCharIndex(a: string) {
+// 	return a.split('').findIndex((char, _, arr) => arr.indexOf(char) === arr.lastIndexOf(char));
+// }
+// console.log(firstUniqueCharIndex('ssttaammp'));
 
 // Shunday function yozing, bu function parametrdagi string ichida
 // bir marotabadan ortiq qaytarilmagan birinchi harf indeksini qaytarsin
@@ -24,9 +43,10 @@ console.log(firstUniqueCharIndex('ssttaammp'));
 // 	}
 
 // 	return result;
+// 	//bu yerni hatosi faqat bitta bolsagini takrorlanmagan raqam shundagini togri qaytaradi
 // }
 
-// console.log(singleNumber([4, 2, 1, 2, 1, 4, 9]));
+// console.log(singleNumber([4, 4, 1, 5]));
 
 // Shunday function yozing, bu function parametrdagi array ichida
 // bir marotaba takrorlangan element'ni qaytarsin
